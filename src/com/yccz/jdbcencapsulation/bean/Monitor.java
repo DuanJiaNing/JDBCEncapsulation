@@ -31,5 +31,13 @@ public class Monitor extends Commodity {
 	 */
 	@Mapping("monthly_sales")
 	int monthlySales;
+
+	@Override
+	public String toString() {
+		return "Monitor [name=" + name + ", price=" + price + ", description=" + description + ", monthlySales="
+				+ monthlySales + ", id=" + id + "]";
+	}
+	
+	
 	
 }

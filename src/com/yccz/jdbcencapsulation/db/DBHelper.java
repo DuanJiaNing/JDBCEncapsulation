@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class DBHelper {
 
-	public static final String url = "jdbc:mysql://127.0.0.1/";
+	public static final String url = "jdbc:mysql://127.0.0.1/*?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 	public static final String driver = "com.mysql.jdbc.Driver";
 	public static final String user = "root";
 	public static final String password = "123456";
@@ -51,7 +51,7 @@ public class DBHelper {
 	 *             数据库连接获取异常
 	 */
 	public Connection getConnection(String name) throws SQLException {
-		return DriverManager.getConnection(url+name, user, password);
+		return DriverManager.getConnection(url.replace("*", name), user, password);
 	}
 
 	/**

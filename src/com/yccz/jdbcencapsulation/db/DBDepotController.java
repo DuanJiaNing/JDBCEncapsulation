@@ -1,5 +1,6 @@
 package com.yccz.jdbcencapsulation.db;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -82,7 +83,7 @@ public class DBDepotController<T extends Commodity> {
 				for (FieldToken.FieldHolder h : fh) {
 					Field field = h.field;
 					String label = h.name;
-					Class<?> type = field.getClass();
+					Class<?> type = field.getType();
 
 					Object value = set.getObject(label, type);
 					field.setAccessible(true);
@@ -98,7 +99,14 @@ public class DBDepotController<T extends Commodity> {
 			Utils.closeAutoCloseable(stat);
 		}
 
-		return (T[]) result.toArray();
+		T[] res = null;
+		if (result != null && result.size() > 0) {
+			res = (T[]) Array.newInstance(clasz, result.size());
+			for (int i = 0; i < result.size(); i++) {
+				res[i] = result.get(i);
+			}
+		}
+		return res;
 	}
 
 	public T[] select(Class<T> clasz, String[] whereCase, String[] whereValues) {

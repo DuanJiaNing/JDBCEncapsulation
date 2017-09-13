@@ -35,5 +35,12 @@ public class MonitorDetail extends Commodity {
 	 */
 	@Mapping("size")
 	String size;
+
+	@Override
+	public String toString() {
+		return "MonitorDetail [listingTime=" + listingTime + ", brand=" + brand + ", model=" + model + ", size=" + size
+				+ ", id=" + id + "]";
+	}
+	
 	
 }

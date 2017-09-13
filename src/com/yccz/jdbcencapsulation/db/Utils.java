@@ -35,4 +35,8 @@ public class Utils {
 		System.out.println(msg);
 	}
 	
+	public static boolean isReal(CharSequence str) {
+		return str != null && !str.equals("null") && str.length() > 0;
+	}
+	
 }

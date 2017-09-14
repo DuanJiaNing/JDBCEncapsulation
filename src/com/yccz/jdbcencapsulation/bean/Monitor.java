@@ -6,8 +6,13 @@ package com.yccz.jdbcencapsulation.bean;
  * @author 2017/09/13 DuanJiaNing
  */
 @Mapping("monitor")
-public class Monitor extends Commodity {
-
+public class Monitor {
+	/**
+	 * 商品 id
+	 */
+	@Mapping("id")
+	int id;
+	
 	/**
 	 * 显示器名称
 	 */

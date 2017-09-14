@@ -1,10 +1,5 @@
 package com.yccz.jdbcencapsulation;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.yccz.jdbcencapsulation.bean.Commodity;
 import com.yccz.jdbcencapsulation.bean.Mapping;
 
 /**
@@ -14,7 +9,7 @@ import com.yccz.jdbcencapsulation.bean.Mapping;
  * @param T
  *            货物类型，该类需要使用{@code Mapping}注解标明其对应数据库的表的名字
  */
-public class TypeToken<T extends Commodity> {
+public class TypeToken<T> {
 
 	private final TypeHolder holder;
 

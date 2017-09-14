@@ -11,7 +11,6 @@ import java.util.List;
 
 import com.yccz.jdbcencapsulation.FieldToken;
 import com.yccz.jdbcencapsulation.TypeToken;
-import com.yccz.jdbcencapsulation.bean.Commodity;
 
 /**
  * 数据库，在不再使用时要{@code #close()}方法关闭数据库连接
@@ -19,7 +18,7 @@ import com.yccz.jdbcencapsulation.bean.Commodity;
  * @author 2017/09/13 DuanJiaNing
  *
  */
-public class DataBase {
+public class DataBase implements DB {
 
 	// 数据库连接
 	private final Connection conn;
@@ -28,29 +27,8 @@ public class DataBase {
 		this.conn = connection;
 	}
 
-	/**
-	 * 查询表中的所有数据
-	 * 
-	 * @param clasz
-	 *            要查询的表对应的实体数据类类型
-	 * @return 查询结果
-	 */
-	public <T extends Commodity> T[] select(Class<T> clasz) {
-		if (clasz == null) {
-			return null;
-		}
-		
-		String table = getTableName(clasz);
-		if (Utils.isReal(table)) {
-			String sql = "select * from " + table;
-			return select(clasz, sql);
-		} else {
-			return null;
-		}
-	}
-
 	// 根据实体类类型信息获得其对应的数据表名称
-	private <T extends Commodity> String getTableName(Class<T> clasz) {
+	private <T> String getTableName(Class<T> clasz) {
 		TypeToken<T> token = new TypeToken<>(clasz);
 		return token.getTabelName();
 	}
@@ -65,11 +43,11 @@ public class DataBase {
 	 * @return 查询结果
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends Commodity> T[] select(Class<T> clasz, String sql) {
+	public <T> T[] read(Class<T> clasz, String sql) {
 		if (clasz == null || !Utils.isReal(sql)) {
 			return null;
 		}
-		
+
 		PreparedStatement stat = null;
 		ResultSet set = null;
 		List<T> result = null;
@@ -135,16 +113,16 @@ public class DataBase {
 	 *            whereCase 对应的值
 	 * @return 查询结果
 	 */
-	public <T extends Commodity> T[] select(Class<T> clasz, String[] whereCase, String[] whereValues) {
+	public <T> T[] read(Class<T> clasz, String[] whereCase, String[] whereValues) {
 		if (clasz == null) {
 			return null;
 		}
-		
+
 		String table = getTableName(clasz);
 		if (Utils.isReal(table)) {
 			String where = constructConditions(whereCase, whereValues);
 			String sql = "select * from " + table + (where == null ? "" : " where" + where);
-			return select(clasz, sql);
+			return read(clasz, sql);
 		} else {
 			return null;
 		}
@@ -196,5 +174,38 @@ public class DataBase {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public <T> T[] read(Class<T> clasz) {
+		if (clasz == null) {
+			return null;
+		}
+
+		String table = getTableName(clasz);
+		if (Utils.isReal(table)) {
+			String sql = "select * from " + table;
+			return read(clasz, sql);
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public <T> void create(T... ts) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public <T> void update(T... ts) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public <T> void delete(T... ts) {
+		// TODO Auto-generated method stub
+
 	}
 }

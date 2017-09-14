@@ -9,8 +9,13 @@ import java.util.Date;
  *
  */
 @Mapping("monitor_detail")
-public class MonitorDetail extends Commodity {
+public class MonitorDetail {
 
+	/**
+	 * 商品 id
+	 */
+	@Mapping("id")
+	int id;
 	
 	/**
 	 * 上市时间

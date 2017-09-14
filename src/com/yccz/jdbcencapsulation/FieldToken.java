@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.yccz.jdbcencapsulation.bean.Data;
+
 /**
  * 实体类字段信息
  * 
@@ -11,7 +13,7 @@ import java.util.List;
  * @param T
  *            货物类型，该类的域需要使用{@code Mapping}注解标明其对应数据库的字段名
  */
-public class FieldToken<T> implements Token<List<FieldToken.FieldHolder>> {
+public class FieldToken<T extends Data> implements Token<List<FieldToken.FieldHolder>> {
 
 	private List<FieldHolder> holders;
 

@@ -1,5 +1,7 @@
 package com.yccz.jdbcencapsulation;
 
+import com.yccz.jdbcencapsulation.bean.Data;
+
 /**
  * 实体类类型信息
  * 
@@ -7,7 +9,7 @@ package com.yccz.jdbcencapsulation;
  * @param T
  *            货物类型，该类需要使用{@code Mapping}注解标明其对应数据库的表的名字
  */
-public class TableToken<T> implements Token<String> {
+public class TableToken<T extends Data> implements Token<String> {
 
 	/**
 	 * 表名

@@ -2,7 +2,7 @@ package com.yccz.jdbcencapsulation.test;
 
 import java.util.function.Consumer;
 
-import com.yccz.jdbcencapsulation.bean.MonitorDetail;
+import com.yccz.jdbcencapsulation.bean.Monitor;
 import com.yccz.jdbcencapsulation.db.DBHelper;
 import com.yccz.jdbcencapsulation.db.DataBase;
 import com.yccz.jdbcencapsulation.db.Utils;
@@ -17,7 +17,7 @@ public class Test {
 //			Monitor[] ms = dataBase.query(Monitor.class);
 //			Monitor[] ms = dataBase.query(Monitor.class,"select * from monitor");
 			
-			MonitorDetail[] ms = dataBase.query(MonitorDetail.class);
+			Monitor[] ms = dataBase.query(Monitor.class);
 					
 			if (ms != null && ms.length > 0) {
 				forEach(ms);

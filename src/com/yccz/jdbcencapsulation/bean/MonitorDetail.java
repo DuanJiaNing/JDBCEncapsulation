@@ -2,6 +2,8 @@ package com.yccz.jdbcencapsulation.bean;
 
 import java.util.Date;
 
+import com.yccz.jdbcencapsulation.Mapping;
+
 /**
  * 显示器详细参数数据实体类
  * 对应数据库表: monitor_detail

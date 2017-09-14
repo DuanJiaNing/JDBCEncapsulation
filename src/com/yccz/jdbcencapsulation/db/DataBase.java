@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.yccz.jdbcencapsulation.FieldToken;
-import com.yccz.jdbcencapsulation.TypeToken;
+import com.yccz.jdbcencapsulation.TableToken;
+import com.yccz.jdbcencapsulation.Token;
 
 /**
  * 数据库，在不再使用时要{@code #close()}方法关闭数据库连接
@@ -18,19 +19,13 @@ import com.yccz.jdbcencapsulation.TypeToken;
  * @author 2017/09/13 DuanJiaNing
  *
  */
-public class DataBase implements DB {
+public class DataBase implements Query {
 
 	// 数据库连接
 	private final Connection conn;
 
 	public DataBase(Connection connection) {
 		this.conn = connection;
-	}
-
-	// 根据实体类类型信息获得其对应的数据表名称
-	private <T> String getTableName(Class<T> clasz) {
-		TypeToken<T> token = new TypeToken<>(clasz);
-		return token.getTabelName();
 	}
 
 	/**
@@ -43,7 +38,7 @@ public class DataBase implements DB {
 	 * @return 查询结果
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T[] read(Class<T> clasz, String sql) {
+	public <T> T[] query(Class<T> clasz, String sql) {
 		if (clasz == null || !Utils.isReal(sql)) {
 			return null;
 		}
@@ -66,8 +61,8 @@ public class DataBase implements DB {
 			}
 
 			// 获取映射关系
-			FieldToken<T> token = new FieldToken<>(clasz);
-			List<FieldToken.FieldHolder> fh = token.getFieldHolder();
+			Token<List<FieldToken.FieldHolder>> token = new FieldToken<>(clasz);
+			List<FieldToken.FieldHolder> fh = token.get();
 			result = new ArrayList<>();
 
 			// 利用反射将查询结果赋给目标类型
@@ -113,7 +108,7 @@ public class DataBase implements DB {
 	 *            whereCase 对应的值
 	 * @return 查询结果
 	 */
-	public <T> T[] read(Class<T> clasz, String[] whereCase, String[] whereValues) {
+	public <T> T[] query(Class<T> clasz, String[] whereCase, String[] whereValues) {
 		if (clasz == null) {
 			return null;
 		}
@@ -122,12 +117,33 @@ public class DataBase implements DB {
 		if (Utils.isReal(table)) {
 			String where = constructConditions(whereCase, whereValues);
 			String sql = "select * from " + table + (where == null ? "" : " where" + where);
-			return read(clasz, sql);
+			return query(clasz, sql);
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public <T> T[] query(Class<T> clasz) {
+		if (clasz == null) {
+			return null;
+		}
+
+		String table = getTableName(clasz);
+		if (Utils.isReal(table)) {
+			String sql = "select * from " + table;
+			return query(clasz, sql);
 		} else {
 			return null;
 		}
 	}
 
+	// 根据实体类类型信息获得其对应的数据表名称
+	private <T> String getTableName(Class<T> clasz) {
+		Token<String> token = new TableToken<>(clasz);
+		return token.get();
+	}
+	
 	// 获取结果集大小，调用前提为 prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
 	// ResultSet.CONCUR_READ_ONLY)
 	private int getResultSetSize(ResultSet set) throws SQLException {
@@ -167,45 +183,13 @@ public class DataBase implements DB {
 	 *            数据库连接
 	 */
 	public void close() {
-		if (conn != null) {
-			try {
+		try {
+			if (conn != null && !conn.isClosed()) {
 				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
-	@Override
-	public <T> T[] read(Class<T> clasz) {
-		if (clasz == null) {
-			return null;
-		}
-
-		String table = getTableName(clasz);
-		if (Utils.isReal(table)) {
-			String sql = "select * from " + table;
-			return read(clasz, sql);
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public <T> void create(T... ts) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public <T> void update(T... ts) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public <T> void delete(T... ts) {
-		// TODO Auto-generated method stub
-
-	}
 }

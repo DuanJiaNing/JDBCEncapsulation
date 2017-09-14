@@ -1,4 +1,4 @@
-package com.yccz.jdbcencapsulation.bean;
+package com.yccz.jdbcencapsulation;
 
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;

@@ -1,4 +1,4 @@
-package com.yccz.jdbcencapsulation;
+package com.yccz.jdbcencapsulation.test;
 
 import java.util.function.Consumer;
 
@@ -13,11 +13,11 @@ public class Test {
 		DataBase dataBase = DBHelper.getInstance().getDataBase(DBHelper.DATABASE_DEPOT);
 		if (dataBase != null) {
 			
-//			Monitor[] ms = dataBase.read(Monitor.class,new String[] {"price","id"},new String[] {"18.28","1"});
-//			Monitor[] ms = dataBase.read(Monitor.class);
-//			Monitor[] ms = dataBase.read(Monitor.class,"select * from monitor");
+//			Monitor[] ms = dataBase.query(Monitor.class,new String[] {"price","id"},new String[] {"18.28","1"});
+//			Monitor[] ms = dataBase.query(Monitor.class);
+//			Monitor[] ms = dataBase.query(Monitor.class,"select * from monitor");
 			
-			MonitorDetail[] ms = dataBase.read(MonitorDetail.class);
+			MonitorDetail[] ms = dataBase.query(MonitorDetail.class);
 					
 			if (ms != null && ms.length > 0) {
 				forEach(ms);
@@ -28,7 +28,7 @@ public class Test {
 			
 		}
 	}
-			
+	
 	private static Consumer<CharSequence> P = msg -> Utils.log(msg);
 
 	private static <T> void forEach(T... ts) {

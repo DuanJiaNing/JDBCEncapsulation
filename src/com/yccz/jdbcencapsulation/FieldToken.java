@@ -4,8 +4,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.yccz.jdbcencapsulation.bean.Mapping;
-
 /**
  * 实体类字段信息
  * 
@@ -13,13 +11,15 @@ import com.yccz.jdbcencapsulation.bean.Mapping;
  * @param T
  *            货物类型，该类的域需要使用{@code Mapping}注解标明其对应数据库的字段名
  */
-public class FieldToken<T> {
+public class FieldToken<T> implements Token<List<FieldToken.FieldHolder>> {
 
-	private final List<FieldHolder> holders;
+	private List<FieldHolder> holders;
 
 	public FieldToken(Class<T> clasz) {
-		holders = new ArrayList<FieldHolder>();
-		initFieldHolder(clasz);
+		if (clasz != null) {
+			holders = new ArrayList<FieldHolder>();
+			initFieldHolder(clasz);
+		}
 	}
 
 	// 初始化类型的映射关系
@@ -43,11 +43,10 @@ public class FieldToken<T> {
 	}
 
 	/**
-	 * 获得映射列表
-	 * 
-	 * @return 映射列表
+	 * 获得数据库表的字段名与实体类域的映射列表
 	 */
-	public List<FieldHolder> getFieldHolder() {
+	@Override
+	public List<FieldHolder> get() {
 		return holders;
 	}
 

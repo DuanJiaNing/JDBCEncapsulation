@@ -1,5 +1,7 @@
 package com.yccz.jdbcencapsulation.bean;
 
+import com.yccz.jdbcencapsulation.Mapping;
+
 /**
  * 显示器基本信息数据实体类
  * 对应数据库表: monitor

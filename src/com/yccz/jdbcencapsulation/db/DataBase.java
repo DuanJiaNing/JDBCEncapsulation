@@ -14,32 +14,32 @@ import com.yccz.jdbcencapsulation.TypeToken;
 import com.yccz.jdbcencapsulation.bean.Commodity;
 
 /**
- * 数据库 depot 工具类
+ * 数据库，在不再使用时要{@code #close()}方法关闭数据库连接
  * 
  * @author 2017/09/13 DuanJiaNing
  *
  */
-public class DBDepotController<T extends Commodity> {
+public class DataBase {
 
-	private static final String DATABASE = "depot";
+	// 数据库连接
+	private final Connection conn;
 
-	private Connection conn = null;
-
-	public DBDepotController() {
-		init();
+	public DataBase(Connection connection) {
+		this.conn = connection;
 	}
 
-	// 获得数据库连接
-	private void init() {
-		try {
-			conn = DBHelper.getInstance().getConnection(DATABASE);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	/**
+	 * 查询表中的所有数据
+	 * 
+	 * @param clasz
+	 *            要查询的表对应的实体数据类类型
+	 * @return 查询结果
+	 */
+	public <T extends Commodity> T[] select(Class<T> clasz) {
+		if (clasz == null) {
+			return null;
 		}
-	}
-
-	public T[] select(Class<T> clasz) {
+		
 		String table = getTableName(clasz);
 		if (Utils.isReal(table)) {
 			String sql = "select * from " + table;
@@ -49,14 +49,27 @@ public class DBDepotController<T extends Commodity> {
 		}
 	}
 
-	private String getTableName(Class<T> clasz) {
+	// 根据实体类类型信息获得其对应的数据表名称
+	private <T extends Commodity> String getTableName(Class<T> clasz) {
 		TypeToken<T> token = new TypeToken<>(clasz);
 		return token.getTabelName();
 	}
 
+	/**
+	 * 根据 sql 语句查询表中数据
+	 * 
+	 * @param clasz
+	 *            要查询的表对应的实体数据类类型
+	 * @param sql
+	 *            sql 语句
+	 * @return 查询结果
+	 */
 	@SuppressWarnings("unchecked")
-	public T[] select(Class<T> clasz, String sql) {
-
+	public <T extends Commodity> T[] select(Class<T> clasz, String sql) {
+		if (clasz == null || !Utils.isReal(sql)) {
+			return null;
+		}
+		
 		PreparedStatement stat = null;
 		ResultSet set = null;
 		List<T> result = null;
@@ -65,6 +78,8 @@ public class DBDepotController<T extends Commodity> {
 			// 使结果集可滚动，方便获取结果集大小
 			stat = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			set = stat.executeQuery();
+
+			Utils.log(sql);
 
 			// 获取大小
 			int size = getResultSetSize(set);
@@ -109,11 +124,26 @@ public class DBDepotController<T extends Commodity> {
 		return res;
 	}
 
-	public T[] select(Class<T> clasz, String[] whereCase, String[] whereValues) {
+	/**
+	 * 根据条件查询表中数据
+	 * 
+	 * @param clasz
+	 *            要查询的表对应的实体数据类类型
+	 * @param whereCase
+	 *            sql 语句 where 对应列名
+	 * @param whereValues
+	 *            whereCase 对应的值
+	 * @return 查询结果
+	 */
+	public <T extends Commodity> T[] select(Class<T> clasz, String[] whereCase, String[] whereValues) {
+		if (clasz == null) {
+			return null;
+		}
+		
 		String table = getTableName(clasz);
 		if (Utils.isReal(table)) {
 			String where = constructConditions(whereCase, whereValues);
-			String sql = "select * from " + table + " " + where;
+			String sql = "select * from " + table + (where == null ? "" : " where" + where);
 			return select(clasz, sql);
 		} else {
 			return null;
@@ -132,12 +162,39 @@ public class DBDepotController<T extends Commodity> {
 		return size;
 	}
 
+	// 构造 sql 语句 where 条件
 	private String constructConditions(String[] whereCase, String[] whereValues) {
-		if (whereCase == null || whereCase.length == 0 || whereValues == null || whereValues.length == 0) {
-			return "";
+		if (whereCase == null || whereCase.length == 0 || whereValues == null || whereValues.length == 0
+				|| whereCase.length != whereValues.length) {
+			return null;
 		}
 
-		return null;
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < whereCase.length; i++) {
+			String where = whereCase[i];
+			String value = whereValues[i];
+			if (i > 0) {
+				builder.append(" and");
+			}
+			builder.append(' ').append(where).append(" like ").append('\'').append(value).append('\'');
+		}
+
+		return builder.toString();
 	}
 
+	/**
+	 * 调用者可自己关闭数据库，亦可调用该方法忽略异常关闭数据库
+	 * 
+	 * @param conn
+	 *            数据库连接
+	 */
+	public void close() {
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

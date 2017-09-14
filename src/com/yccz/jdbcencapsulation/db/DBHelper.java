@@ -1,9 +1,7 @@
 package com.yccz.jdbcencapsulation.db;
 
-import java.beans.SimpleBeanInfo;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -18,6 +16,8 @@ public class DBHelper {
 	public static final String driver = "com.mysql.jdbc.Driver";
 	public static final String user = "root";
 	public static final String password = "123456";
+
+	public static final String DATABASE_DEPOT = "depot";
 
 	public volatile static DBHelper sINSTANCE;
 
@@ -38,7 +38,6 @@ public class DBHelper {
 			// 加载驱动
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -46,27 +45,19 @@ public class DBHelper {
 	/**
 	 * 获得数据库连接
 	 * 
+	 * @param name 数据库名字
 	 * @return 数据库连接，可能为 null
-	 * @throws SQLException
-	 *             数据库连接获取异常
 	 */
-	public Connection getConnection(String name) throws SQLException {
-		return DriverManager.getConnection(url.replace("*", name), user, password);
-	}
-
-	/**
-	 * 调用者可自己关闭数据库，亦可调用该方法忽略异常关闭数据库
-	 * 
-	 * @param conn
-	 *            数据库连接
-	 */
-	public void close(Connection conn) {
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+	public DataBase getDataBase(String name){
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection(url.replace("*", name), user, password);
+			return new DataBase(conn);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
 	}
+
 }

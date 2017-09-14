@@ -16,15 +16,18 @@ import com.yccz.jdbcencapsulation.bean.Mapping;
  */
 public class TypeToken<T extends Commodity> {
 
-	private TypeHolder holder;
+	private final TypeHolder holder;
 
 	public TypeToken(Class<T> clasz) {
-		initFieldHolder(clasz);
+		this.holder = new TypeHolder();
+		
+		if (clasz != null) {
+			initFieldHolder(clasz);
+		}
 	}
 
 	// 初始化类型的映射关系
 	private void initFieldHolder(Class<T> clasz) {
-		holder = new TypeHolder();
 		Mapping map = clasz.getAnnotation(Mapping.class);
 		if (map != null) {
 			holder.name = map.value();

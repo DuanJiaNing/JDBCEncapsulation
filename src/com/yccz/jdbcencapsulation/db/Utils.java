@@ -2,6 +2,8 @@ package com.yccz.jdbcencapsulation.db;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Utils {
 
@@ -32,7 +34,8 @@ public class Utils {
 	}
 	
 	public static void log(CharSequence msg) {
-		System.out.println(msg);
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+		System.out.println(f.format(new Date(System.currentTimeMillis()))+" "+msg);
 	}
 	
 	public static boolean isReal(CharSequence str) {

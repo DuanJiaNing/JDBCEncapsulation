@@ -12,21 +12,97 @@ import java.util.List;
 import com.yccz.jdbcencapsulation.FieldToken;
 import com.yccz.jdbcencapsulation.TableToken;
 import com.yccz.jdbcencapsulation.Token;
+import com.yccz.jdbcencapsulation.Utils;
 import com.yccz.jdbcencapsulation.bean.Data;
 
 /**
- * 数据库，在不再使用时要{@code #close()}方法关闭数据库连接
+ * 数据库 CRUD 操作实现类
+ * <p>
+ * 在不再使用时要{@code #close()}方法关闭数据库连接
+ * <p>
+ * 使用{@link DBHelper#getDataBase(String)}方法指定要操作的数据库，亦可指定数据库连接直接调用构造方法获得实例
+ * 
+ * @see DBHelper
+ * @see DB
+ * @see Data
  * 
  * @author 2017/09/13 DuanJiaNing
- *
  */
 public class DataBase implements DB {
 
-	// 数据库连接
+	/**
+	 * 数据库连接
+	 */
 	private final Connection conn;
 
-	public DataBase(Connection connection) {
+	/**
+	 * 构造一个<code>DataBase</code>实例，应通过{@link DBHelper#getDataBase(String)}方法创建
+	 * 
+	 * @param connection
+	 *            数据库连接
+	 */
+	DataBase(Connection connection) {
 		this.conn = connection;
+	}
+
+	/**
+	 * 根据实体类类型信息获得其对应的数据表名称
+	 */
+	private <T extends Data> String getTableName(Class<T> clasz) {
+		Token<String> token = new TableToken<>(clasz);
+		return token.get();
+	}
+
+	/**
+	 * 获取结果集大小，调用前提为 prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
+	 * ResultSet.CONCUR_READ_ONLY)
+	 */
+	private int getResultSetSize(ResultSet set) throws SQLException {
+		int size = -1;
+		if (set != null) {
+			set.last();
+			size = set.getRow();
+			set.beforeFirst();
+		}
+		return size;
+	}
+
+	/**
+	 * 构造 sql 语句 where 条件
+	 */
+	private String constructConditions(String[] whereCase, String[] whereValues) {
+		if (whereCase == null || whereCase.length == 0 || whereValues == null || whereValues.length == 0
+				|| whereCase.length != whereValues.length) {
+			return null;
+		}
+
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < whereCase.length; i++) {
+			String where = whereCase[i];
+			String value = whereValues[i];
+			if (i > 0) {
+				builder.append(" and");
+			}
+			builder.append(' ').append(where).append(" like ").append('\'').append(value).append('\'');
+		}
+
+		return builder.toString();
+	}
+
+	/**
+	 * 关闭数据库
+	 * 
+	 * @param conn
+	 *            数据库连接对象
+	 */
+	public void close() {
+		try {
+			if (conn != null && !conn.isClosed()) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -124,6 +200,9 @@ public class DataBase implements DB {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <T extends Data> T[] query(Class<T> clasz) {
 		if (clasz == null) {
@@ -138,61 +217,10 @@ public class DataBase implements DB {
 			return null;
 		}
 	}
-
-	// 根据实体类类型信息获得其对应的数据表名称
-	private <T extends Data> String getTableName(Class<T> clasz) {
-		Token<String> token = new TableToken<>(clasz);
-		return token.get();
-	}
-
-	// 获取结果集大小，调用前提为 prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
-	// ResultSet.CONCUR_READ_ONLY)
-	private int getResultSetSize(ResultSet set) throws SQLException {
-		int size = -1;
-		if (set != null) {
-			set.last();
-			size = set.getRow();
-			set.beforeFirst();
-		}
-		return size;
-	}
-
-	// 构造 sql 语句 where 条件
-	private String constructConditions(String[] whereCase, String[] whereValues) {
-		if (whereCase == null || whereCase.length == 0 || whereValues == null || whereValues.length == 0
-				|| whereCase.length != whereValues.length) {
-			return null;
-		}
-
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < whereCase.length; i++) {
-			String where = whereCase[i];
-			String value = whereValues[i];
-			if (i > 0) {
-				builder.append(" and");
-			}
-			builder.append(' ').append(where).append(" like ").append('\'').append(value).append('\'');
-		}
-
-		return builder.toString();
-	}
-
+	
 	/**
-	 * 调用者可自己关闭数据库，亦可调用该方法忽略异常关闭数据库
-	 * 
-	 * @param conn
-	 *            数据库连接
+	 * {@inheritDoc}
 	 */
-	public void close() {
-		try {
-			if (conn != null && !conn.isClosed()) {
-				conn.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public <T extends Data> boolean insert(T... ts) {
 		if (Utils.isArrayEmpty(ts)) {
@@ -206,6 +234,7 @@ public class DataBase implements DB {
 			return false;
 		}
 
+		// 获取映射关系
 		Token<List<FieldToken.FieldHolder>> token = new FieldToken<>(clasz);
 		List<FieldToken.FieldHolder> fh = token.get();
 		if (Utils.isListEmpty(fh)) {
@@ -232,6 +261,7 @@ public class DataBase implements DB {
 					} else {
 						try {
 
+							// 利用反射获得值
 							field.setAccessible(true);
 							v = field.get(t).toString();
 
@@ -277,6 +307,10 @@ public class DataBase implements DB {
 
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <T extends Data> boolean update(T... ts) {
 		if (Utils.isArrayEmpty(ts)) {
@@ -290,6 +324,7 @@ public class DataBase implements DB {
 			return false;
 		}
 
+		// 获取映射关系
 		Token<List<FieldToken.FieldHolder>> token = new FieldToken<>(clasz);
 		List<FieldToken.FieldHolder> fh = token.get();
 		if (Utils.isListEmpty(fh)) {
@@ -311,6 +346,7 @@ public class DataBase implements DB {
 
 					try {
 
+						// 利用反射获得值
 						field.setAccessible(true);
 						v = field.get(t).toString();
 
@@ -358,6 +394,10 @@ public class DataBase implements DB {
 
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <T extends Data> boolean delete(Class<T> clasz, int... ids) {
 		if (Utils.isArrayEmpty(ids)) {

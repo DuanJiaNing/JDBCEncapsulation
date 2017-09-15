@@ -7,16 +7,27 @@ import java.util.List;
 import com.yccz.jdbcencapsulation.bean.Data;
 
 /**
- * 实体类字段信息
+ * 实体类字段信息获取类
+ * <p>
+ * 用于获得实体类的成员变量中被 {@link Mapping}注解的成员的注解值
  * 
  * @author 2017/09/13 DuanJiaNing
  * @param T
- *            货物类型，该类的域需要使用{@code Mapping}注解标明其对应数据库的字段名
+ *            实体类，该类的域需要使用{@code Mapping}注解标明其对应数据库中的字段名
  */
 public class FieldToken<T extends Data> implements Token<List<FieldToken.FieldHolder>> {
 
+	/**
+	 * 保存成员变量与字段名的映射信息
+	 */
 	private List<FieldHolder> holders;
 
+	/**
+	 * 构建一个实例
+	 * 
+	 * @param clasz
+	 *            实体类类型
+	 */
 	public FieldToken(Class<T> clasz) {
 		if (clasz != null) {
 			holders = new ArrayList<FieldHolder>();
@@ -24,7 +35,9 @@ public class FieldToken<T extends Data> implements Token<List<FieldToken.FieldHo
 		}
 	}
 
-	// 初始化类型的映射关系
+	/**
+	 * 初始化类型的映射关系
+	 */
 	private void initFieldHolder(Class<T> clasz) {
 		Field[] fs = clasz.getDeclaredFields();
 		for (Field f : fs) {

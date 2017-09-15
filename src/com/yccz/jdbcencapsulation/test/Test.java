@@ -2,13 +2,19 @@ package com.yccz.jdbcencapsulation.test;
 
 import java.util.function.Consumer;
 
+import com.yccz.jdbcencapsulation.Utils;
 import com.yccz.jdbcencapsulation.bean.Data;
 import com.yccz.jdbcencapsulation.bean.Monitor;
 import com.yccz.jdbcencapsulation.bean.MonitorDetail;
 import com.yccz.jdbcencapsulation.db.DBHelper;
 import com.yccz.jdbcencapsulation.db.DataBase;
-import com.yccz.jdbcencapsulation.db.Utils;
 
+/**
+ * 测试类
+ * 
+ * @author 2017/09/13 DuanJiaNing
+ *
+ */
 public class Test {
 
 	private final DataBase dataBase;
@@ -40,16 +46,18 @@ public class Test {
 		test.print(Monitor.class);
 		test.print(MonitorDetail.class);
 
+		test.dataBase.close();
+
 	}
 
 	private void testForDelete() {
+		dataBase.delete(Monitor.class, 3);
 		dataBase.delete(MonitorDetail.class, 1, 2);
-		dataBase.delete(Monitor.class, 1, 2, 3);
 	}
 
 	private void testForUpdate() {
-		Monitor mo = new Monitor(4, "Philips/飞利浦 278E8Q", 1329.00f, "飞利浦 27英寸曲面显示器 278E8Q电脑曲面32显示屏", 3055);
-		MonitorDetail md = new MonitorDetail(5, Utils.getTimeInMillis(2017, 6), "飞利浦 ", "278E8Q", 32.5f);
+		Monitor mo = new Monitor(1, "Philips/飞利浦 278E8Q", 1329.00f, "飞利浦 27英寸曲面显示器 278E8Q电脑曲面32显示屏", 5555);
+		MonitorDetail md = new MonitorDetail(2, Utils.getTimeInMillis(2015, 2), "松人", "SW270A", 33.8f);
 
 		dataBase.update(md);
 		dataBase.update(mo);
@@ -64,6 +72,7 @@ public class Test {
 	private <T extends Data> void print(Class<T> clasz) {
 		System.out.println();
 		P.accept(clasz.getName());
+
 		T[] ms = dataBase.query(clasz);
 		// Monitor[] ms = dataBase.query(Monitor.class, new String[] { "price", "id" },
 		// new String[] { "18.28", "1" });

@@ -1,5 +1,7 @@
 package com.yccz.jdbcencapsulation.bean;
 
+import java.io.Serializable;
+
 import com.yccz.jdbcencapsulation.Mapping;
 
 /**
@@ -8,7 +10,7 @@ import com.yccz.jdbcencapsulation.Mapping;
  * @author 2017/09/13 DuanJiaNing
  */
 @Mapping("monitor")
-public class Monitor extends Data {
+public class Monitor extends Data implements Serializable {
 	/**
 	 * ÏÔÊ¾Æ÷Ãû³Æ
 	 */

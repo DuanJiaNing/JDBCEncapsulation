@@ -1,5 +1,6 @@
 package com.yccz.jdbcencapsulation.bean;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import com.yccz.jdbcencapsulation.Mapping;
  *
  */
 @Mapping("monitor_detail")
-public class MonitorDetail extends Data {
+public class MonitorDetail extends Data implements Serializable{
 
 	/**
 	 * 上市时间

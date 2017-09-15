@@ -16,22 +16,22 @@ public class DBHelper {
 	/**
 	 * mysql 地址
 	 */
-	public static final String url = "jdbc:mysql://127.0.0.1/*?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+	private final String url = "jdbc:mysql://127.0.0.1/*?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 
 	/**
 	 * 驱动
 	 */
-	public static final String driver = "com.mysql.jdbc.Driver";
+	private final String driver = "com.mysql.jdbc.Driver";
 
 	/**
 	 * 数据库用户名
 	 */
-	public static final String user = "root";
+	private final String user = "root";
 
 	/**
 	 * 数据库密码
 	 */
-	public static final String password = "123456";
+	private final String password = "123456";
 
 	/**
 	 * 数据库名字

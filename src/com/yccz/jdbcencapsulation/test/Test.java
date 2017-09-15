@@ -47,7 +47,7 @@ public class Test {
 		test.print(MonitorDetail.class);
 
 		test.dataBase.close();
-		
+
 	}
 
 	private void testForDelete() {

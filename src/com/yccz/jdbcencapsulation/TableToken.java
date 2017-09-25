@@ -3,26 +3,26 @@ package com.yccz.jdbcencapsulation;
 import com.yccz.jdbcencapsulation.bean.Data;
 
 /**
- * ÊµÌåÀàÀàĞÍĞÅÏ¢»ñÈ¡Àà
+ * å®ä½“ç±»ç±»å‹ä¿¡æ¯è·å–ç±»
  * <p>
- * ÓÃÓÚ»ñµÃ±» {@link Mapping}×¢½âµÄÊµÌåÀàµÄ×¢½âÖµ
+ * ç”¨äºè·å¾—è¢« {@link Mapping}æ³¨è§£çš„å®ä½“ç±»çš„æ³¨è§£å€¼
  * 
  * @author 2017/09/13 DuanJiaNing
  * @param T
- *            ÊµÌåÀà£¬¸ÃÀàĞèÒªÊ¹ÓÃ{@code Mapping}×¢½â±êÃ÷Æä¶ÔÓ¦Êı¾İ¿âµÄ±íµÄÃû×Ö
+ *            å®ä½“ç±»ï¼Œè¯¥ç±»éœ€è¦ä½¿ç”¨{@code Mapping}æ³¨è§£æ ‡æ˜å…¶å¯¹åº”æ•°æ®åº“çš„è¡¨çš„åå­—
  */
 public class TableToken<T extends Data> implements Token<String> {
 
 	/**
-	 * ±íÃû
+	 * è¡¨å
 	 */
 	private String tableName;
 
 	/**
-	 * ¹¹½¨Ò»¸öÊµÀı
+	 * æ„å»ºä¸€ä¸ªå®ä¾‹
 	 * 
 	 * @param clasz
-	 *            ÊµÌåÀàÀàĞÍ
+	 *            å®ä½“ç±»ç±»å‹
 	 */
 	public TableToken(Class<T> clasz) {
 		if (clasz != null) {
@@ -31,7 +31,7 @@ public class TableToken<T extends Data> implements Token<String> {
 	}
 
 	/**
-	 * ÀûÓÃ·´Éä»ñµÃ×¢½â±êÃ÷µÄ±íÃû
+	 * åˆ©ç”¨åå°„è·å¾—æ³¨è§£æ ‡æ˜çš„è¡¨å
 	 */
 	private void getTableName(Class<T> clasz) {
 		Mapping map = clasz.getAnnotation(Mapping.class);
@@ -41,7 +41,7 @@ public class TableToken<T extends Data> implements Token<String> {
 	}
 
 	/**
-	 * »ñµÃÀà¶ÔÓ¦±íµÄ±íÃû
+	 * è·å¾—ç±»å¯¹åº”è¡¨çš„è¡¨å
 	 */
 	@Override
 	public String get() {

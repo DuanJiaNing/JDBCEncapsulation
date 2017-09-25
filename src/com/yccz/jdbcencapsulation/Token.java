@@ -1,17 +1,17 @@
 package com.yccz.jdbcencapsulation;
 
 /**
- * »ñµÃÊµÌåÀàÓ³Éäµ½Êı¾İ¿âµÄÊôĞÔ
+ * è·å¾—å®ä½“ç±»æ˜ å°„åˆ°æ•°æ®åº“çš„å±æ€§
  * 
  * @author 2017/09/14 DuanJiaNing
  *
- * @param <E> Ä¿±êÀàĞÍ
+ * @param <E> ç›®æ ‡ç±»å‹
  */
 public interface Token<E> {
 
 	/**
-	 * »ñµÃÊôĞÔ
-	 * @return ÊôĞÔÖµ
+	 * è·å¾—å±æ€§
+	 * @return å±æ€§å€¼
 	 */
 	E get();
 	

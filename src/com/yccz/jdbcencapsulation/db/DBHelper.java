@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Êı¾İ¿â¸¨ÖúÀà£¬Ö÷ÒªÓÃÓÚ»ñµÃÊı¾İ¿â²Ù×÷Àà{@link DataBase}}
+ * æ•°æ®åº“è¾…åŠ©ç±»ï¼Œä¸»è¦ç”¨äºè·å¾—æ•°æ®åº“æ“ä½œç±»{@link DataBase}}
  * 
  * @see DataBase
  * @author 2017/09/13 DuanJiaNing
@@ -14,39 +14,39 @@ import java.sql.SQLException;
 public class DBHelper {
 
 	/**
-	 * mysql µØÖ·
+	 * mysql åœ°å€
 	 */
 	private final String url = "jdbc:mysql://127.0.0.1/*?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 
 	/**
-	 * Çı¶¯
+	 * é©±åŠ¨
 	 */
 	private final String driver = "com.mysql.jdbc.Driver";
 
 	/**
-	 * Êı¾İ¿âÓÃ»§Ãû
+	 * æ•°æ®åº“ç”¨æˆ·å
 	 */
 	private final String user = "root";
 
 	/**
-	 * Êı¾İ¿âÃÜÂë
+	 * æ•°æ®åº“å¯†ç 
 	 */
 	private final String password = "123456";
 
 	/**
-	 * Êı¾İ¿âÃû×Ö
+	 * æ•°æ®åº“åå­—
 	 */
 	public static final String DATABASE_DEPOT = "depot";
 
 	/**
-	 * Î¨Ò»ÊµÀı
+	 * å”¯ä¸€å®ä¾‹
 	 */
 	public volatile static DBHelper sINSTANCE;
 
 	/**
-	 * »ñµÃ<code>DBHelper</code>ÊµÀı
+	 * è·å¾—<code>DBHelper</code>å®ä¾‹
 	 * 
-	 * @return ÊµÀı
+	 * @return å®ä¾‹
 	 */
 	public static DBHelper getInstance() {
 		if (sINSTANCE == null) {
@@ -61,11 +61,11 @@ public class DBHelper {
 	}
 
 	/**
-	 * ¹¹ÔìÒ»¸öÊµÀı
+	 * æ„é€ ä¸€ä¸ªå®ä¾‹
 	 */
 	private DBHelper() {
 		try {
-			// ¼ÓÔØÇı¶¯
+			// åŠ è½½é©±åŠ¨
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -73,11 +73,11 @@ public class DBHelper {
 	}
 
 	/**
-	 * »ñµÃÊı¾İ¿âÁ¬½Ó
+	 * è·å¾—æ•°æ®åº“è¿æ¥
 	 * 
 	 * @param name
-	 *            Êı¾İ¿âÃû×Ö
-	 * @return Êı¾İ¿âÁ¬½Ó£¬¿ÉÄÜÎª null
+	 *            æ•°æ®åº“åå­—
+	 * @return æ•°æ®åº“è¿æ¥ï¼Œå¯èƒ½ä¸º null
 	 */
 	public DataBase getDataBase(String name) {
 		Connection conn;

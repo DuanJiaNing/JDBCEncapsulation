@@ -10,7 +10,7 @@ import com.yccz.jdbcencapsulation.db.DBHelper;
 import com.yccz.jdbcencapsulation.db.DataBase;
 
 /**
- * ²âÊÔÀà
+ * æµ‹è¯•ç±»
  * 
  * @author 2017/09/13 DuanJiaNing
  *
@@ -19,14 +19,14 @@ public class Test {
 
 	private final DataBase dataBase;
 
-	// ²âÊÔÊı¾İ
-	private Monitor mo1 = new Monitor(1, "Philips/·ÉÀûÆÖ 278E8Q", 1329.00f, "·ÉÀûÆÖ 27Ó¢´çÇúÃæÏÔÊ¾Æ÷ 278E8QµçÄÔÇúÃæ32ÏÔÊ¾ÆÁ", 3034);
-	private Monitor mo2 = new Monitor(2, "ËÉÈË SW270A", 799.09f, "ËÉÈËĞÂ¿î27Ó¢´çIPSÆÁÒº¾§µçÄÔÏÔÊ¾Æ÷ÓÎÏ·µç¾ºÉè¼Æ", 3489);
-	private Monitor mo3 = new Monitor(3, "Dell/´÷¶û SE2416Hm", 899.09f, "¡¾ËÕÄş×ÔÓª¡¿Dell/´÷¶û SE2416HM 23.8Ó¢´çLED±³¹â", 1013);
+	// æµ‹è¯•æ•°æ®
+	private Monitor mo1 = new Monitor(1, "Philips/é£åˆ©æµ¦ 278E8Q", 1329.00f, "é£åˆ©æµ¦ 27è‹±å¯¸æ›²é¢æ˜¾ç¤ºå™¨ 278E8Qç”µè„‘æ›²é¢32æ˜¾ç¤ºå±", 3034);
+	private Monitor mo2 = new Monitor(2, "æ¾äºº SW270A", 799.09f, "æ¾äººæ–°æ¬¾27è‹±å¯¸IPSå±æ¶²æ™¶ç”µè„‘æ˜¾ç¤ºå™¨æ¸¸æˆç”µç«è®¾è®¡", 3489);
+	private Monitor mo3 = new Monitor(3, "Dell/æˆ´å°” SE2416Hm", 899.09f, "ã€è‹å®è‡ªè¥ã€‘Dell/æˆ´å°” SE2416HM 23.8è‹±å¯¸LEDèƒŒå…‰", 1013);
 
-	private MonitorDetail md1 = new MonitorDetail(1, Utils.getTimeInMillis(2017, 6), "·ÉÀûÆÖ ", "278E8Q", 32);
-	private MonitorDetail md2 = new MonitorDetail(2, Utils.getTimeInMillis(2015, 2), "ËÉÈË", "SW270A", 27);
-	private MonitorDetail md3 = new MonitorDetail(3, Utils.getTimeInMillis(2017, 9), "´÷¶û", "SE2416Hm", 23.8f);
+	private MonitorDetail md1 = new MonitorDetail(1, Utils.getTimeInMillis(2017, 6), "é£åˆ©æµ¦ ", "278E8Q", 32);
+	private MonitorDetail md2 = new MonitorDetail(2, Utils.getTimeInMillis(2015, 2), "æ¾äºº", "SW270A", 27);
+	private MonitorDetail md3 = new MonitorDetail(3, Utils.getTimeInMillis(2017, 9), "æˆ´å°”", "SE2416Hm", 23.8f);
 
 	public Test() {
 		dataBase = DBHelper.getInstance().getDataBase(DBHelper.DATABASE_DEPOT);
@@ -56,8 +56,8 @@ public class Test {
 	}
 
 	private void testForUpdate() {
-		Monitor mo = new Monitor(1, "Philips/·ÉÀûÆÖ 278E8Q", 1329.00f, "·ÉÀûÆÖ 27Ó¢´çÇúÃæÏÔÊ¾Æ÷ 278E8QµçÄÔÇúÃæ32ÏÔÊ¾ÆÁ", 5555);
-		MonitorDetail md = new MonitorDetail(2, Utils.getTimeInMillis(2015, 2), "ËÉÈË", "SW270A", 33.8f);
+		Monitor mo = new Monitor(1, "Philips/é£åˆ©æµ¦ 278E8Q", 1329.00f, "é£åˆ©æµ¦ 27è‹±å¯¸æ›²é¢æ˜¾ç¤ºå™¨ 278E8Qç”µè„‘æ›²é¢32æ˜¾ç¤ºå±", 5555);
+		MonitorDetail md = new MonitorDetail(2, Utils.getTimeInMillis(2015, 2), "æ¾äºº", "SW270A", 33.8f);
 
 		dataBase.update(md);
 		dataBase.update(mo);

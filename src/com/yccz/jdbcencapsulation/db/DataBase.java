@@ -16,11 +16,11 @@ import com.yccz.jdbcencapsulation.Utils;
 import com.yccz.jdbcencapsulation.bean.Data;
 
 /**
- * Êı¾İ¿â CRUD ²Ù×÷ÊµÏÖÀà
+ * æ•°æ®åº“ CRUD æ“ä½œå®ç°ç±»
  * <p>
- * ÔÚ²»ÔÙÊ¹ÓÃÊ±Òª{@code #close()}·½·¨¹Ø±ÕÊı¾İ¿âÁ¬½Ó
+ * åœ¨ä¸å†ä½¿ç”¨æ—¶è¦{@code #close()}æ–¹æ³•å…³é—­æ•°æ®åº“è¿æ¥
  * <p>
- * Ê¹ÓÃ{@link DBHelper#getDataBase(String)}·½·¨Ö¸¶¨Òª²Ù×÷µÄÊı¾İ¿â£¬Òà¿ÉÖ¸¶¨Êı¾İ¿âÁ¬½ÓÖ±½Óµ÷ÓÃ¹¹Ôì·½·¨»ñµÃÊµÀı
+ * ä½¿ç”¨{@link DBHelper#getDataBase(String)}æ–¹æ³•æŒ‡å®šè¦æ“ä½œçš„æ•°æ®åº“ï¼Œäº¦å¯æŒ‡å®šæ•°æ®åº“è¿æ¥ç›´æ¥è°ƒç”¨æ„é€ æ–¹æ³•è·å¾—å®ä¾‹
  * 
  * @see DBHelper
  * @see DB
@@ -31,22 +31,22 @@ import com.yccz.jdbcencapsulation.bean.Data;
 public class DataBase implements DB {
 
 	/**
-	 * Êı¾İ¿âÁ¬½Ó
+	 * æ•°æ®åº“è¿æ¥
 	 */
 	private final Connection conn;
 
 	/**
-	 * ¹¹ÔìÒ»¸ö<code>DataBase</code>ÊµÀı£¬Ó¦Í¨¹ı{@link DBHelper#getDataBase(String)}·½·¨´´½¨
+	 * æ„é€ ä¸€ä¸ª<code>DataBase</code>å®ä¾‹ï¼Œåº”é€šè¿‡{@link DBHelper#getDataBase(String)}æ–¹æ³•åˆ›å»º
 	 * 
 	 * @param connection
-	 *            Êı¾İ¿âÁ¬½Ó
+	 *            æ•°æ®åº“è¿æ¥
 	 */
 	DataBase(Connection connection) {
 		this.conn = connection;
 	}
 
 	/**
-	 * ¸ù¾İÊµÌåÀàÀàĞÍĞÅÏ¢»ñµÃÆä¶ÔÓ¦µÄÊı¾İ±íÃû³Æ
+	 * æ ¹æ®å®ä½“ç±»ç±»å‹ä¿¡æ¯è·å¾—å…¶å¯¹åº”çš„æ•°æ®è¡¨åç§°
 	 */
 	private <T extends Data> String getTableName(Class<T> clasz) {
 		Token<String> token = new TableToken<>(clasz);
@@ -54,7 +54,7 @@ public class DataBase implements DB {
 	}
 
 	/**
-	 * »ñÈ¡½á¹û¼¯´óĞ¡£¬µ÷ÓÃÇ°ÌáÎª prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
+	 * è·å–ç»“æœé›†å¤§å°ï¼Œè°ƒç”¨å‰æä¸º prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,
 	 * ResultSet.CONCUR_READ_ONLY)
 	 */
 	private int getResultSetSize(ResultSet set) throws SQLException {
@@ -68,7 +68,7 @@ public class DataBase implements DB {
 	}
 
 	/**
-	 * ¹¹Ôì sql Óï¾ä where Ìõ¼ş
+	 * æ„é€  sql è¯­å¥ where æ¡ä»¶
 	 */
 	private String constructConditions(String[] whereCase, String[] whereValues) {
 		if (whereCase == null || whereCase.length == 0 || whereValues == null || whereValues.length == 0
@@ -90,10 +90,10 @@ public class DataBase implements DB {
 	}
 
 	/**
-	 * ¹Ø±ÕÊı¾İ¿â
+	 * å…³é—­æ•°æ®åº“
 	 * 
 	 * @param conn
-	 *            Êı¾İ¿âÁ¬½Ó¶ÔÏó
+	 *            æ•°æ®åº“è¿æ¥å¯¹è±¡
 	 */
 	public void close() {
 		try {
@@ -106,13 +106,13 @@ public class DataBase implements DB {
 	}
 
 	/**
-	 * ¸ù¾İ sql Óï¾ä²éÑ¯±íÖĞÊı¾İ
+	 * æ ¹æ® sql è¯­å¥æŸ¥è¯¢è¡¨ä¸­æ•°æ®
 	 * 
 	 * @param clasz
-	 *            Òª²éÑ¯µÄ±í¶ÔÓ¦µÄÊµÌåÊı¾İÀàÀàĞÍ
+	 *            è¦æŸ¥è¯¢çš„è¡¨å¯¹åº”çš„å®ä½“æ•°æ®ç±»ç±»å‹
 	 * @param sql
-	 *            sql Óï¾ä
-	 * @return ²éÑ¯½á¹û
+	 *            sql è¯­å¥
+	 * @return æŸ¥è¯¢ç»“æœ
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends Data> T[] query(Class<T> clasz, String sql) {
@@ -125,24 +125,24 @@ public class DataBase implements DB {
 		List<T> result = null;
 
 		try {
-			// Ê¹½á¹û¼¯¿É¹ö¶¯£¬·½±ã»ñÈ¡½á¹û¼¯´óĞ¡
+			// ä½¿ç»“æœé›†å¯æ»šåŠ¨ï¼Œæ–¹ä¾¿è·å–ç»“æœé›†å¤§å°
 			stat = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			set = stat.executeQuery();
 
 			Utils.log(sql);
 
-			// »ñÈ¡´óĞ¡
+			// è·å–å¤§å°
 			int size = getResultSetSize(set);
 			if (size <= 0) {
 				return null;
 			}
 
-			// »ñÈ¡Ó³Éä¹ØÏµ
+			// è·å–æ˜ å°„å…³ç³»
 			Token<List<FieldToken.FieldHolder>> token = new FieldToken<>(clasz);
 			List<FieldToken.FieldHolder> fh = token.get();
 			result = new ArrayList<>();
 
-			// ÀûÓÃ·´Éä½«²éÑ¯½á¹û¸³¸øÄ¿±êÀàĞÍ
+			// åˆ©ç”¨åå°„å°†æŸ¥è¯¢ç»“æœèµ‹ç»™ç›®æ ‡ç±»å‹
 			while (set.next()) {
 				T item = clasz.newInstance();
 				for (FieldToken.FieldHolder h : fh) {
@@ -175,15 +175,15 @@ public class DataBase implements DB {
 	}
 
 	/**
-	 * ¸ù¾İÌõ¼ş²éÑ¯±íÖĞÊı¾İ
+	 * æ ¹æ®æ¡ä»¶æŸ¥è¯¢è¡¨ä¸­æ•°æ®
 	 * 
 	 * @param clasz
-	 *            Òª²éÑ¯µÄ±í¶ÔÓ¦µÄÊµÌåÊı¾İÀàÀàĞÍ
+	 *            è¦æŸ¥è¯¢çš„è¡¨å¯¹åº”çš„å®ä½“æ•°æ®ç±»ç±»å‹
 	 * @param whereCase
-	 *            sql Óï¾ä where ¶ÔÓ¦ÁĞÃû
+	 *            sql è¯­å¥ where å¯¹åº”åˆ—å
 	 * @param whereValues
-	 *            whereCase ¶ÔÓ¦µÄÖµ
-	 * @return ²éÑ¯½á¹û
+	 *            whereCase å¯¹åº”çš„å€¼
+	 * @return æŸ¥è¯¢ç»“æœ
 	 */
 	public <T extends Data> T[] query(Class<T> clasz, String[] whereCase, String[] whereValues) {
 		if (clasz == null) {
@@ -234,7 +234,7 @@ public class DataBase implements DB {
 			return false;
 		}
 
-		// »ñÈ¡Ó³Éä¹ØÏµ
+		// è·å–æ˜ å°„å…³ç³»
 		Token<List<FieldToken.FieldHolder>> token = new FieldToken<>(clasz);
 		List<FieldToken.FieldHolder> fh = token.get();
 		if (Utils.isListEmpty(fh)) {
@@ -261,7 +261,7 @@ public class DataBase implements DB {
 					} else {
 						try {
 
-							// ÀûÓÃ·´Éä»ñµÃÖµ
+							// åˆ©ç”¨åå°„è·å¾—å€¼
 							field.setAccessible(true);
 							v = field.get(t).toString();
 
@@ -324,7 +324,7 @@ public class DataBase implements DB {
 			return false;
 		}
 
-		// »ñÈ¡Ó³Éä¹ØÏµ
+		// è·å–æ˜ å°„å…³ç³»
 		Token<List<FieldToken.FieldHolder>> token = new FieldToken<>(clasz);
 		List<FieldToken.FieldHolder> fh = token.get();
 		if (Utils.isListEmpty(fh)) {
@@ -346,7 +346,7 @@ public class DataBase implements DB {
 
 					try {
 
-						// ÀûÓÃ·´Éä»ñµÃÖµ
+						// åˆ©ç”¨åå°„è·å¾—å€¼
 						field.setAccessible(true);
 						v = field.get(t).toString();
 

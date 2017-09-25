@@ -7,26 +7,26 @@ import java.util.List;
 import com.yccz.jdbcencapsulation.bean.Data;
 
 /**
- * ÊµÌåÀà×Ö¶ÎĞÅÏ¢»ñÈ¡Àà
+ * å®ä½“ç±»å­—æ®µä¿¡æ¯è·å–ç±»
  * <p>
- * ÓÃÓÚ»ñµÃÊµÌåÀàµÄ³ÉÔ±±äÁ¿ÖĞ±» {@link Mapping}×¢½âµÄ³ÉÔ±µÄ×¢½âÖµ
+ * ç”¨äºè·å¾—å®ä½“ç±»çš„æˆå‘˜å˜é‡ä¸­è¢« {@link Mapping}æ³¨è§£çš„æˆå‘˜çš„æ³¨è§£å€¼
  * 
  * @author 2017/09/13 DuanJiaNing
  * @param T
- *            ÊµÌåÀà£¬¸ÃÀàµÄÓòĞèÒªÊ¹ÓÃ{@code Mapping}×¢½â±êÃ÷Æä¶ÔÓ¦Êı¾İ¿âÖĞµÄ×Ö¶ÎÃû
+ *            å®ä½“ç±»ï¼Œè¯¥ç±»çš„åŸŸéœ€è¦ä½¿ç”¨{@code Mapping}æ³¨è§£æ ‡æ˜å…¶å¯¹åº”æ•°æ®åº“ä¸­çš„å­—æ®µå
  */
 public class FieldToken<T extends Data> implements Token<List<FieldToken.FieldHolder>> {
 
 	/**
-	 * ±£´æ³ÉÔ±±äÁ¿Óë×Ö¶ÎÃûµÄÓ³ÉäĞÅÏ¢
+	 * ä¿å­˜æˆå‘˜å˜é‡ä¸å­—æ®µåçš„æ˜ å°„ä¿¡æ¯
 	 */
 	private List<FieldHolder> holders;
 
 	/**
-	 * ¹¹½¨Ò»¸öÊµÀı
+	 * æ„å»ºä¸€ä¸ªå®ä¾‹
 	 * 
 	 * @param clasz
-	 *            ÊµÌåÀàÀàĞÍ
+	 *            å®ä½“ç±»ç±»å‹
 	 */
 	public FieldToken(Class<T> clasz) {
 		if (clasz != null) {
@@ -36,7 +36,7 @@ public class FieldToken<T extends Data> implements Token<List<FieldToken.FieldHo
 	}
 
 	/**
-	 * ³õÊ¼»¯ÀàĞÍµÄÓ³Éä¹ØÏµ
+	 * åˆå§‹åŒ–ç±»å‹çš„æ˜ å°„å…³ç³»
 	 */
 	private void initFieldHolder(Class<T> clasz) {
 		Field[] fs = clasz.getDeclaredFields();
@@ -58,7 +58,7 @@ public class FieldToken<T extends Data> implements Token<List<FieldToken.FieldHo
 	}
 
 	/**
-	 * »ñµÃÊı¾İ¿â±íµÄ×Ö¶ÎÃûÓëÊµÌåÀàÓòµÄÓ³ÉäÁĞ±í
+	 * è·å¾—æ•°æ®åº“è¡¨çš„å­—æ®µåä¸å®ä½“ç±»åŸŸçš„æ˜ å°„åˆ—è¡¨
 	 */
 	@Override
 	public List<FieldHolder> get() {
@@ -66,19 +66,19 @@ public class FieldToken<T extends Data> implements Token<List<FieldToken.FieldHo
 	}
 
 	/**
-	 * ±£´æÊı¾İ¿â×Ö¶ÎÃûÓëÊı¾İÊµÌåµÄÓ³Éä¹ØÏµ
+	 * ä¿å­˜æ•°æ®åº“å­—æ®µåä¸æ•°æ®å®ä½“çš„æ˜ å°„å…³ç³»
 	 * 
 	 * @author 2017/09/13 DuanJiaNing
 	 *
 	 */
 	public static class FieldHolder {
 		/**
-		 * Êı¾İ¿âÖĞÈ¡³öµÄÊı¾İ½«Òª´æÈëµÄÊµÌåÀà×Ö¶Î
+		 * æ•°æ®åº“ä¸­å–å‡ºçš„æ•°æ®å°†è¦å­˜å…¥çš„å®ä½“ç±»å­—æ®µ
 		 */
 		public Field field;
 
 		/**
-		 * Êı¾İ¿â×Ö¶ÎÃû
+		 * æ•°æ®åº“å­—æ®µå
 		 */
 		public String name;
 	}

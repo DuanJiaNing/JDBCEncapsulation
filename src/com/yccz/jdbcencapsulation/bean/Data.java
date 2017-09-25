@@ -3,7 +3,7 @@ package com.yccz.jdbcencapsulation.bean;
 import com.yccz.jdbcencapsulation.Mapping;
 
 /**
- * Êı¾İ¿âÊı¾İ¶ÔÓ¦ÊµÌåÀàµÄ»ùÀà
+ * æ•°æ®åº“æ•°æ®å¯¹åº”å®ä½“ç±»çš„åŸºç±»
  * 
  * @author 2017/09/14 DuanJiaNing
  *

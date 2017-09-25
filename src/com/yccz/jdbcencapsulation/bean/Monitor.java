@@ -5,38 +5,38 @@ import java.io.Serializable;
 import com.yccz.jdbcencapsulation.Mapping;
 
 /**
- * ÏÔÊ¾Æ÷»ù±¾ĞÅÏ¢Êı¾İÊµÌåÀà ¶ÔÓ¦Êı¾İ¿â±í: monitor
+ * æ˜¾ç¤ºå™¨åŸºæœ¬ä¿¡æ¯æ•°æ®å®ä½“ç±» å¯¹åº”æ•°æ®åº“è¡¨: monitor
  * 
  * @author 2017/09/13 DuanJiaNing
  */
 @Mapping("monitor")
 public class Monitor extends Data implements Serializable {
 	/**
-	 * ÏÔÊ¾Æ÷Ãû³Æ
+	 * æ˜¾ç¤ºå™¨åç§°
 	 */
 	@Mapping("name")
 	private String name;
 
 	/**
-	 * ÏÔÊ¾Æ÷¼Û¸ñ
+	 * æ˜¾ç¤ºå™¨ä»·æ ¼
 	 */
 	@Mapping("price")
 	private float price;
 
 	/**
-	 * ÏÔÊ¾Æ÷ÃèÊö
+	 * æ˜¾ç¤ºå™¨æè¿°
 	 */
 	@Mapping("description")
 	private String description;
 
 	/**
-	 * ÔÂÏúÁ¿
+	 * æœˆé”€é‡
 	 */
 	@Mapping("monthly_sales")
 	private int monthlySales;
 
 	/**
-	 * Ö¸¶¨ËùÓĞÓòµÄÖµ£¬ÕâÍ¨³£ÓÃÓÚ¡¾¸üĞÂ¡¿²Ù×÷ id Óò±»ÓÃÓÚÎ¨Ò»È·¶¨Ä¿±ê¸üĞÂÊı¾İ£¬ÆäËûÓòÔòÎªĞÂµÄÖµ
+	 * æŒ‡å®šæ‰€æœ‰åŸŸçš„å€¼ï¼Œè¿™é€šå¸¸ç”¨äºã€æ›´æ–°ã€‘æ“ä½œ id åŸŸè¢«ç”¨äºå”¯ä¸€ç¡®å®šç›®æ ‡æ›´æ–°æ•°æ®ï¼Œå…¶ä»–åŸŸåˆ™ä¸ºæ–°çš„å€¼
 	 */
 	public Monitor(int id, String name, float price, String description, int monthlySales) {
 		super(id);
@@ -47,7 +47,7 @@ public class Monitor extends Data implements Serializable {
 	}
 
 	/**
-	 * ÎŞĞèÖ¸¶¨ id µÄ¹¹Ôìº¯Êı£¬ÒòÎª id ÊÇÖ÷¼ü£¬»á×Ô¶¯Éú³É ÕâÍ¨³£ÓÃÓÚ¡¾ĞÂÔö¡¿²Ù×÷
+	 * æ— éœ€æŒ‡å®š id çš„æ„é€ å‡½æ•°ï¼Œå› ä¸º id æ˜¯ä¸»é”®ï¼Œä¼šè‡ªåŠ¨ç”Ÿæˆ è¿™é€šå¸¸ç”¨äºã€æ–°å¢ã€‘æ“ä½œ
 	 */
 	public Monitor(String name, float price, String description, int monthlySales) {
 		this.name = name;
@@ -56,7 +56,7 @@ public class Monitor extends Data implements Serializable {
 		this.monthlySales = monthlySales;
 	}
 
-	// ·´Éä¹¹½¨¶ÔÏóĞèÒªÓĞÒ»¸öÄ¬ÈÏµÄ¿É·ÃÎÊ¹¹Ôìº¯Êı
+	// åå°„æ„å»ºå¯¹è±¡éœ€è¦æœ‰ä¸€ä¸ªé»˜è®¤çš„å¯è®¿é—®æ„é€ å‡½æ•°
 	public Monitor() {
 	}
 

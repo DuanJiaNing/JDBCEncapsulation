@@ -7,7 +7,7 @@ import java.util.Date;
 import com.yccz.jdbcencapsulation.Mapping;
 
 /**
- * ÏÔÊ¾Æ÷ÏêÏ¸²ÎÊıÊı¾İÊµÌåÀà ¶ÔÓ¦Êı¾İ¿â±í: monitor_detail
+ * æ˜¾ç¤ºå™¨è¯¦ç»†å‚æ•°æ•°æ®å®ä½“ç±» å¯¹åº”æ•°æ®åº“è¡¨: monitor_detail
  * 
  * @author 2017/09/13 DuanJiaNing
  *
@@ -16,31 +16,31 @@ import com.yccz.jdbcencapsulation.Mapping;
 public class MonitorDetail extends Data implements Serializable{
 
 	/**
-	 * ÉÏÊĞÊ±¼ä
+	 * ä¸Šå¸‚æ—¶é—´
 	 */
 	@Mapping("listing_time")
 	private long listingTime;
 
 	/**
-	 * Æ·ÅÆ
+	 * å“ç‰Œ
 	 */
 	@Mapping("brand")
 	private String brand;
 
 	/**
-	 * ĞÍºÅ
+	 * å‹å·
 	 */
 	@Mapping("model")
 	private String model;
 
 	/**
-	 * ÆÁÄ»³ß´ç
+	 * å±å¹•å°ºå¯¸
 	 */
 	@Mapping("size")
 	private float size;
 
 	/**
-	 * Ö¸¶¨ËùÓĞÓòµÄÖµ£¬ÕâÍ¨³£ÓÃÓÚ¡¾¸üĞÂ¡¿²Ù×÷ id Óò±»ÓÃÓÚÎ¨Ò»È·¶¨Ä¿±ê¸üĞÂÊı¾İ£¬ÆäËûÓòÔòÎªĞÂµÄÖµ
+	 * æŒ‡å®šæ‰€æœ‰åŸŸçš„å€¼ï¼Œè¿™é€šå¸¸ç”¨äºã€æ›´æ–°ã€‘æ“ä½œ id åŸŸè¢«ç”¨äºå”¯ä¸€ç¡®å®šç›®æ ‡æ›´æ–°æ•°æ®ï¼Œå…¶ä»–åŸŸåˆ™ä¸ºæ–°çš„å€¼
 	 */
 	public MonitorDetail(int id, long listingTime, String brand, String model, float size) {
 		super(id);
@@ -51,7 +51,7 @@ public class MonitorDetail extends Data implements Serializable{
 	}
 
 	/**
-	 * ÎŞĞèÖ¸¶¨ id µÄ¹¹Ôìº¯Êı£¬ÒòÎª id ÊÇÖ÷¼ü£¬»á×Ô¶¯Éú³É ÕâÍ¨³£ÓÃÓÚ¡¾ĞÂÔö¡¿²Ù×÷
+	 * æ— éœ€æŒ‡å®š id çš„æ„é€ å‡½æ•°ï¼Œå› ä¸º id æ˜¯ä¸»é”®ï¼Œä¼šè‡ªåŠ¨ç”Ÿæˆ è¿™é€šå¸¸ç”¨äºã€æ–°å¢ã€‘æ“ä½œ
 	 */
 	public MonitorDetail(long listingTime, String brand, String model, float size) {
 		this.listingTime = listingTime;
@@ -60,13 +60,13 @@ public class MonitorDetail extends Data implements Serializable{
 		this.size = size;
 	}
 
-	// ·´Éä¹¹½¨¶ÔÏóĞèÒªÓĞÒ»¸öÄ¬ÈÏµÄ¿É·ÃÎÊ¹¹Ôìº¯Êı
+	// åå°„æ„å»ºå¯¹è±¡éœ€è¦æœ‰ä¸€ä¸ªé»˜è®¤çš„å¯è®¿é—®æ„é€ å‡½æ•°
 	public MonitorDetail() {
 	}
 
 	@Override
 	public String toString() {
-		SimpleDateFormat f = new SimpleDateFormat("yyyyÄêMMÔÂ");
+		SimpleDateFormat f = new SimpleDateFormat("yyyyå¹´MMæœˆ");
 		return "MonitorDetail [listingTime=" + f.format(new Date(listingTime)) + ", brand=" + brand + ", model=" + model
 				+ ", size=" + size + ", toString()=" + super.toString() + "]";
 	}

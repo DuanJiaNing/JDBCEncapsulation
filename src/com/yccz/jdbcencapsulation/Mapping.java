@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 
 
 /**
- * ÓÃÓÚÊı¾İ¿â×Ö¶ÎÃûµ½ java ÊµÌåÀà×Ö¶ÎµÄÓ³Éä
+ * ç”¨äºæ•°æ®åº“å­—æ®µååˆ° java å®ä½“ç±»å­—æ®µçš„æ˜ å°„
  * @author 2017/09/13 DuanJiaNing
  *
  */

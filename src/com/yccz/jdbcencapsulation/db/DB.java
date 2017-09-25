@@ -3,10 +3,10 @@ package com.yccz.jdbcencapsulation.db;
 import com.yccz.jdbcencapsulation.bean.Data;
 
 /**
- * Ê¹ÓÃ×¢½âºÍ·´ÉäÊµÏÖ¶ÔÊı¾İ¿âµÄ CRUD ²Ù×÷£»
+ * ä½¿ç”¨æ³¨è§£å’Œåå°„å®ç°å¯¹æ•°æ®åº“çš„ CRUD æ“ä½œï¼›
  * <p>
- * 1 Í¨¹ı×¢½â½«Êı¾İ¿âÖĞµÄ±í¶ÔÓ¦µ½¾ßÌåµÄ java ÊµÌåÀà <br>
- * 2 Ê¹ÓÃ·´Éä½âÎö±íĞÅÏ¢ºÍÊµÌåÀà¼äµÄÓ³Éä¹ØÏµ
+ * 1 é€šè¿‡æ³¨è§£å°†æ•°æ®åº“ä¸­çš„è¡¨å¯¹åº”åˆ°å…·ä½“çš„ java å®ä½“ç±» <br>
+ * 2 ä½¿ç”¨åå°„è§£æè¡¨ä¿¡æ¯å’Œå®ä½“ç±»é—´çš„æ˜ å°„å…³ç³»
  * 
  * @author 2017/09/14 DuanJiaNing
  *
@@ -14,31 +14,31 @@ import com.yccz.jdbcencapsulation.bean.Data;
 public interface DB {
 
 	/**
-	 * ²éÑ¯Ö¸¶¨±íÖĞµÄËùÓĞÊı¾İ
-	 * @param clasz ±í¶ÔÓ¦µÄÊı¾İÊµÌåÀàÀàĞÍ
-	 * @return ²éÑ¯½á¹û
+	 * æŸ¥è¯¢æŒ‡å®šè¡¨ä¸­çš„æ‰€æœ‰æ•°æ®
+	 * @param clasz è¡¨å¯¹åº”çš„æ•°æ®å®ä½“ç±»ç±»å‹
+	 * @return æŸ¥è¯¢ç»“æœ
 	 */
 	<T extends Data> T[] query(Class<T> clasz);
 	
 	/**
-	 * ²åÈëÊı¾İµ½Ö¸¶¨±íÖĞ£¬
-	 * @param ts Òª²åÈëµÄÊı¾İ
-	 * @return ²åÈë³É¹¦·µ»Ø true£¬·ñÔò false
+	 * æ’å…¥æ•°æ®åˆ°æŒ‡å®šè¡¨ä¸­ï¼Œ
+	 * @param ts è¦æ’å…¥çš„æ•°æ®
+	 * @return æ’å…¥æˆåŠŸè¿”å› trueï¼Œå¦åˆ™ false
 	 */
 	<T extends Data> boolean insert(T...ts);
 	
 	/**
-	 * ¸üĞÂÌØ¶¨±íÖĞµÄÊı¾İ
-	 * @param ts ¸üĞÂµÄÊı¾İ
-	 * @return ¸üĞÂ³É¹¦·µ»Ø true£¬·ñÔò false
+	 * æ›´æ–°ç‰¹å®šè¡¨ä¸­çš„æ•°æ®
+	 * @param ts æ›´æ–°çš„æ•°æ®
+	 * @return æ›´æ–°æˆåŠŸè¿”å› trueï¼Œå¦åˆ™ false
 	 */
 	<T extends Data> boolean update(T...ts);
 	
 	/**
-	 * É¾³ıÌØ¶¨±íÖĞµÄÊı¾İ
+	 * åˆ é™¤ç‰¹å®šè¡¨ä¸­çš„æ•°æ®
 	 * @param clasz 
-	 * @param ids Êı¾İµÄ id Öµ
-	 * @return ³É¹¦·µ»Ø true£¬·ñÔò false
+	 * @param ids æ•°æ®çš„ id å€¼
+	 * @return æˆåŠŸè¿”å› trueï¼Œå¦åˆ™ false
 	 */
 	<T extends Data> boolean delete(Class<T> clasz,int...ids);
 }

@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Í¨ÓÃ¹¤¾ßÀà
+ * é€šç”¨å·¥å…·ç±»
  * 
  * @author 2017/09/15 DuanJiaNing
  *
@@ -16,7 +16,7 @@ import java.util.List;
 public class Utils {
 
 	/**
-	 * ¹Ø±ÕÒ»¸ö {@link Closeable}¶ÔÏó
+	 * å…³é—­ä¸€ä¸ª {@link Closeable}å¯¹è±¡
 	 */
 	public static void close(Closeable obj) {
 		if (obj == null) {
@@ -31,7 +31,7 @@ public class Utils {
 	}
 
 	/**
-	 * ¹Ø±ÕÒ»¸ö {@link AutoCloseable}¶ÔÏó
+	 * å…³é—­ä¸€ä¸ª {@link AutoCloseable}å¯¹è±¡
 	 */
 	public static void closeAutoCloseable(AutoCloseable obj) {
 		if (obj == null) {
@@ -46,7 +46,7 @@ public class Utils {
 	}
 
 	/**
-	 * Êä³ö°üº¬Ê±¼äĞÅÏ¢µÄÈÕÖ¾
+	 * è¾“å‡ºåŒ…å«æ—¶é—´ä¿¡æ¯çš„æ—¥å¿—
 	 */
 	public static void log(CharSequence msg) {
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
@@ -54,34 +54,34 @@ public class Utils {
 	}
 
 	/**
-	 * ÅĞ¶Ï×Ö·û´®ÊÇ·ñÊÇ null µÄ£¬Ã»ÄÚÈİµÄ£¬»òÄÚÈİÎª 'null' µÄ
+	 * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦æ˜¯ null çš„ï¼Œæ²¡å†…å®¹çš„ï¼Œæˆ–å†…å®¹ä¸º 'null' çš„
 	 * 
-	 * @return Âú×ã null »ò ÎŞÄÚÈİ »ò ÄÚÈİÎª 'null' ·µ»Ø true£¬·ñÔò false
+	 * @return æ»¡è¶³ null æˆ– æ— å†…å®¹ æˆ– å†…å®¹ä¸º 'null' è¿”å› trueï¼Œå¦åˆ™ false
 	 */
 	public static boolean isReal(CharSequence str) {
 		return str != null && !str.equals("null") && str.length() > 0;
 	}
 
 	/**
-	 * ÅĞ¶ÏÊı×éÊÇ·ñÎª¿Õ
+	 * åˆ¤æ–­æ•°ç»„æ˜¯å¦ä¸ºç©º
 	 * 
-	 * @return Êı×éÎª null »ò³¤¶ÈÎª 0 ·µ»Ø true£¬·ñÔò false
+	 * @return æ•°ç»„ä¸º null æˆ–é•¿åº¦ä¸º 0 è¿”å› trueï¼Œå¦åˆ™ false
 	 */
 	public static <T> boolean isArrayEmpty(T... ts) {
 		return ts == null || ts.length == 0;
 	}
 
 	/**
-	 * ÅĞ¶Ï¼¯ºÏÊÇ·ñÎª¿Õ
+	 * åˆ¤æ–­é›†åˆæ˜¯å¦ä¸ºç©º
 	 * 
-	 * @return ¼¯ºÏÎª null »ò´óĞ¡Îª 0 ·µ»Ø true£¬·ñÔò false
+	 * @return é›†åˆä¸º null æˆ–å¤§å°ä¸º 0 è¿”å› trueï¼Œå¦åˆ™ false
 	 */
 	public static <T> boolean isListEmpty(List<T> list) {
 		return list == null || list.size() == 0;
 	}
 
 	/**
-	 * ½«Ö¸¶¨Äê·İ£¬ÔÂ·İµÄÈÕÆÚ×ªÎª´Ó1790-1-1 00:00:00µ½µ±Ç°Ê±¼ä×Ü¹²¾­¹ıµÄÊ±¼äµÄºÁÃëÊı
+	 * å°†æŒ‡å®šå¹´ä»½ï¼Œæœˆä»½çš„æ—¥æœŸè½¬ä¸ºä»1790-1-1 00:00:00åˆ°å½“å‰æ—¶é—´æ€»å…±ç»è¿‡çš„æ—¶é—´çš„æ¯«ç§’æ•°
 	 */
 	public static long getTimeInMillis(int year, int month) {
 		Calendar calendar = Calendar.getInstance();
